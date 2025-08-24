@@ -1,0 +1,8 @@
+# Node.js dependencies
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project

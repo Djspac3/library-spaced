@@ -1,0 +1,14 @@
+{
+  "name": "librarys",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/**",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.0",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "preact": "^10.27.1"
+  }
+}
