@@ -5,19 +5,21 @@ export type prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
 
-export namespace looseautocomplete {
-  /**
-   * just loose autocomplete for strings
+/**
+   * just loose autocomplete for some types
    * @example
    * ```ts
    * type aiModels = "a" | "b" | "c" | (string & {})
    * //                                 ^ this is the important part that this is an alias for
-   * // the (string & {}) part makes it so that autocomplete is loose
-   * // meaning you can still type other strings but it will suggest the ones in the union
+   * ```
+   * the (string & {}) part makes it so that autocomplete is loose
+   * meaning you can still type other strings but it will suggest the ones in the union
    *
-   * // this basicly just makes ts THINK its not the same type thus not agressively remove stuff
+   * this basicly just makes ts THINK its not the same type thus not agressively remove stuff
    */
-  export type LooseStrings = string & {};
+export namespace looseautocomplete {
+  export type strings = string & {};
+  export type numbers = number & {};
 }
 
 /**
