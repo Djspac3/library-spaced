@@ -2,7 +2,9 @@
   "name": "librarys",
   "version": "1.0.0",
   "description": "",
-  "exports": "./src/*",
+  "exports": {
+    "./*": "./src/*"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
