@@ -1,4 +1,4 @@
-import type { convertToDiscoUnion } from "../helperTypes";
+import type { convertToDiscoUnion } from "../core/helpers";
 
 // small temporary alias to remove EVERYTHING
 const rm = (win: WindowProxy | Window) => {

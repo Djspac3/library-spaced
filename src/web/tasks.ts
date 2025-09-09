@@ -8,6 +8,10 @@ export class workerHelper {
   // the function used
   src: Function;
   worker: Worker;
+  /**
+   * creates a workerHelper from a function
+   * @param func a function (note: this is using a bit of BLOB magic to make it into a uri to make a worker off, so a compiled function will be less memory intensive [probably])
+   */
   constructor(func: Function) {
     this.src = func;
     this.worker = new Worker(
@@ -46,7 +50,7 @@ export class workerHelper {
         break;
       case "number":
         this.postMessage(this.number(data));
-        break
+        break;
       case "bigint":
         this.postMessage(this.number(data));
         break;

@@ -11,7 +11,7 @@ export class vec2 {
   }
 
   length() {
-    return (this.x * this.x + this.y * this.y) ** 0.5;
+    return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
   isZero() {
@@ -21,7 +21,7 @@ export class vec2 {
   distanceTo(other: vec2) {
     const dx = this.x - other.x;
     const dy = this.y - other.y;
-    return (dx * dx + dy * dy) ** 0.5;
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
   angleTo(other: vec2) {
@@ -94,6 +94,7 @@ export class vec2 {
     return new vec2(Math.cos(angle) * length, Math.sin(angle) * length);
   }
 }
+
 export class vec3 {
   x: number;
   y: number;
