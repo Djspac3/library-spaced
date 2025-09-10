@@ -1,4 +1,4 @@
-class logs {
+export default class logs {
   log(...data: any[]) {
     let first = data[0];
 
