@@ -1,32 +1,53 @@
 export default class logs {
-  log(...data: any[]) {
-    let first = data[0];
+  id: string;
 
-    console.warn(
-      "%cDEBUG: %c",
+  log(...data: any[]) {
+    console.log(
+      `%cDEBUG: ${this.id} : %c`,
       "color: blue",
       "color: white",
-      ...data.slice(1)
+      ...data
     );
   }
-  warn(...data: any[]) {
-    let first = data[0];
-
-    console.warn(
-      "%cDEBUG WARN: %c",
+  logID(id: string, ...data: any[]) {
+    console.log(
+      `%cDEBUG: ${this.id} : ${id} : %c`,
       "color: blue",
       "color: white",
-      ...data.slice(1)
+      ...data
+    );
+  }
+
+  warn(...data: any[]) {
+    console.warn(
+      `%cDEBUG WARN: ${this.id} : %c`,
+      "color: yellow",
+      "color: white",
+      ...data
+    );
+  }
+  warnID(id: string, ...data: any[]) {
+    console.warn(
+      `%cDEBUG WARN: ${this.id} : ${id} : %c`,
+      "color: yellow",
+      "color: white",
+      ...data
     );
   }
   error(...data: any[]) {
-    let first = data[0];
-
     console.error(
-      "%cDEBUG ERROR: %c",
-      "color: blue",
+      `%cDEBUG ERROR: ${this.id} : %c`,
+      "color: red",
       "color: white",
-      ...data.slice(1)
+      ...data
+    );
+  }
+  errorID(id: string, ...data: any[]) {
+    console.error(
+      `%cDEBUG ERROR: ${this.id} : ${id} : %c`,
+      "color: red",
+      "color: white",
+      ...data
     );
   }
 
@@ -41,6 +62,18 @@ export default class logs {
    * @param data whats passed to console.error if condition is false or undefined
    */
   assert(condition?: boolean | undefined, ...data: any[]) {
-    console.assert(condition, ...data);
+    if (!condition) this.error(...data);
+  }
+  /**
+   *
+   * @param condition a boolean or undefined for if
+   * @param data whats passed to console.error if condition is false or undefined
+   */
+  assertID(id: string, condition?: boolean | undefined, ...data: any[]) {
+    if (!condition) this.errorID(id, ...data);
+  }
+
+  constructor(id: string) {
+    this.id = id;
   }
 }
