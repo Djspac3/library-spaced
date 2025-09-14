@@ -54,6 +54,30 @@ export namespace popups {
   }
 }
 
+/**
+ *
+ * @param url the url to run a function on
+ * @param func the function to run (on loading of page) (must take the window(Proxy) and return a promise of any value)
+ * @returns the value func returns (as promise due to async nature) or the error caused on load
+ */
+export function runOnceOnPage(
+  url: string,
+  func: (win: Window | WindowProxy) => Promise<any>
+) {
+  return new Promise((resolve, reject) => {
+    const page = popups.promptPage(100, 100, url);
+    page.addEventListener("load", async () => {
+      try {
+        rm(page);
+        resolve(await func(page));
+        page.close();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  });
+}
+
 type promptSettings = {
   html: {
     width: number;
