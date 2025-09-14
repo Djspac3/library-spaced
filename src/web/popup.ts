@@ -1,7 +1,7 @@
 import type { convertToDiscoUnion } from "../core/helpers";
 
 // small temporary alias to remove EVERYTHING
-const rm = (win: WindowProxy | Window) => {
+function rm(win: WindowProxy | Window) {
   win.document.documentElement.replaceChildren(
     win.document.head,
     win.document.body
@@ -17,7 +17,7 @@ const rm = (win: WindowProxy | Window) => {
   Array.from(win.document.body.attributes).forEach((at) => {
     win.document.body.removeAttribute(at.name);
   });
-};
+}
 
 export namespace popups {
   /**
