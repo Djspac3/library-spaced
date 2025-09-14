@@ -1,2 +1,2 @@
 add FS library
-add function to popup for url and running a function only to after close the window and also not focus on it
+add function to popup for running a function only to after close the window and also not focus on it

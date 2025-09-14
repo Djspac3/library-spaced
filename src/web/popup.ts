@@ -29,10 +29,11 @@ export namespace popups {
    */
   export function promptPage(
     width: number = 600,
-    height: number = 400
+    height: number = 400,
+    url:string = "about:blank"
   ): WindowProxy {
     var popup = open(
-      "about:blank",
+      url,
       "",
       "popup=true,width=" +
         width +
