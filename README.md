@@ -2,6 +2,10 @@
 
 this just my little idiotic library
 
+## [TODO](TODO.txt)
+
+a list of tasks to do later
+
 ## files
 
 - math/vec
