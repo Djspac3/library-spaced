@@ -1,4 +1,4 @@
-export default class logs {
+export class logs {
   id: string;
 
   log(...data: any[]) {

@@ -1,5 +1,3 @@
-const isfirefox = navigator.userAgent.toLowerCase().includes("firefox");
-
 /**
  * reminder: use self/window .addEventListener("message",func)
  * to get data in the worker
@@ -63,6 +61,7 @@ export class workerHelper {
 
       case "boolean":
         this.postMessage(data ? "true" : "false");
+        break;
       default:
         throw new Error("unknown type: " + typeof data);
     }

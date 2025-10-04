@@ -1,4 +1,4 @@
-const rand = {
+export const rand = {
   /**
    * @param min minium
    * @param max exclusive maxium
@@ -20,8 +20,10 @@ const rand = {
     return Math.floor(rand.range(Math.ceil(min), Math.floor(max) + 1));
   },
 };
-export default rand;
-Object.defineProperty(Math, "rand", {
-  value: rand,
-  writable: false,
-});
+
+export function defineRandGlobaly() {
+  Object.defineProperty(Math, "rand", {
+    value: rand,
+    writable: false,
+  });
+}

@@ -1,7 +1,7 @@
 import type { convertToDiscoUnion } from "../core/helpers";
 
 // small temporary alias to remove EVERYTHING
-function rm(win: WindowProxy | Window) {
+export function rm(win: WindowProxy | Window) {
   win.document.documentElement.replaceChildren(
     win.document.head,
     win.document.body
@@ -121,7 +121,7 @@ type EasyPromptFunctionConfig = convertToDiscoUnion<{
  * @param config config takes a "type" field which determines behavior
  * @returns nothing, but the popup will be closed when done
  */
-export default function easyprompt(config: EasyPromptFunctionConfig) {
+export function easyprompt(config: EasyPromptFunctionConfig) {
   // TODO: figureout how to make type checking work for switch case
   if (config.type === "html") {
     let page = popups.promptPage(config.width, config.height);
