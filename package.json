@@ -5,11 +5,18 @@
   "exports": {
     "./*": "./src/*"
   },
+  "scripts": {
+    "prepare": "tsc",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
-    "preact": "^10.27.1"
+    "neverthrow": "^8.2.0",
+    "preact": "^10.27.1",
+    "typescript": "^5.9.3"
   }
 }

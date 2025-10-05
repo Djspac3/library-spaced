@@ -1,3 +1,4 @@
+import { err, ok, Result, ResultAsync } from "neverthrow";
 import type { convertToDiscoUnion } from "../core/helpers";
 
 // small temporary alias to remove EVERYTHING
@@ -30,8 +31,9 @@ export namespace popups {
   export function promptPage(
     width: number = 600,
     height: number = 400,
-    url: string = "about:blank"
-  ): WindowProxy {
+    url: string = "about:blank",
+    clearpage: boolean = true
+  ): Result<WindowProxy, Error> {
     var popup = open(
       url,
       "",
@@ -42,15 +44,31 @@ export namespace popups {
         ",resizable=yes,scrollbars=yes"
     );
     if (!popup) {
-      alert("Popup blocked! Please allow popups for this site.");
-      throw new Error(
-        "library: popup: promptPage: Popup blocked/failed to open"
-      );
+      return err(new Error("Popup blocked/failed"));
     }
     // if clearpage setting, clear page
-    settings.html.clearPage && rm(popup);
+    clearpage && rm(popup);
 
-    return popup;
+    return ok(popup);
+  }
+
+  export function promptJson(
+    promptMsg: string,
+    defaultVal?: any
+  ): Result<any, Error> {
+    const result = prompt(
+      promptMsg,
+      defaultVal ? JSON.stringify(defaultVal) : undefined
+    );
+    if (!result) {
+      return err(new Error("User cancelled prompt"));
+    }
+    try {
+      const parsed = JSON.parse(result);
+      return ok(parsed);
+    } catch (e) {
+      return err(new Error("Invalid JSON input"));
+    }
   }
 }
 
@@ -60,103 +78,21 @@ export namespace popups {
  * @param func the function to run (on loading of page) (must take the window(Proxy) and return a promise of any value)
  * @returns the value func returns (as promise due to async nature) or the error caused on load
  */
-export function runOnceOnPage(
+export function runOnceOnPage<returntype>(
   url: string,
-  func: (win: Window | WindowProxy) => Promise<any>
-) {
-  return new Promise((resolve, reject) => {
-    const page = popups.promptPage(100, 100, url);
-    page.addEventListener("load", async () => {
-      try {
-        rm(page);
-        resolve(await func(page));
-        page.close();
-      } catch (error) {
-        reject(error);
-      }
+  func: (win: Window | WindowProxy) => Promise<returntype> | returntype
+): ResultAsync<returntype, unknown> {
+  return new ResultAsync(new Promise((resolve, reject) => {
+    const page = popups.promptPage(100, 100, url).map((page) => {
+      page.addEventListener("load", async () => {
+        try {
+          rm(page);
+          resolve(ok(await func(page)));
+          page.close();
+        } catch (error) {
+          reject(err(error));
+        }
+      });
     });
-  });
-}
-
-type promptSettings = {
-  html: {
-    width: number;
-    height: number;
-    clearPage: boolean;
-    // if true, it will clear the page before scripts run
-    globalScripts?: (
-      popup: WindowProxy
-    ) => void | ((popup: WindowProxy) => void)[];
-  };
-  list: {
-    formating: "prompts";
-    // prompts is just a load of prompts
-    // TODO: add more formating options
-  };
-};
-
-export var settings: promptSettings = {
-  html: {
-    width: 600,
-    height: 600,
-    clearPage: true,
-  },
-  list: {
-    formating: "prompts",
-  },
-};
-
-type EasyPromptFunctionConfig = convertToDiscoUnion<{
-  html: {
-    width?: number;
-    height?: number;
-    scripts?: (popup: WindowProxy) => void | ((popup: WindowProxy) => void)[];
-  };
-  list: {
-    items: { label: string; value: string }[];
-  };
-  text: { prompt: string; default?: string };
-}>;
-/**
- * @param config config takes a "type" field which determines behavior
- * @returns nothing, but the popup will be closed when done
- */
-export function easyprompt(config: EasyPromptFunctionConfig) {
-  // TODO: figureout how to make type checking work for switch case
-  if (config.type === "html") {
-    let page = popups.promptPage(config.width, config.height);
-    // run scripts
-    if (config.scripts) {
-      if (!Array.isArray(config.scripts)) {
-        // only one script
-        config.scripts(page);
-      } else {
-        // multiple scripts
-        config.scripts.forEach((script) => {
-          script(page);
-        });
-      }
-    }
-    return page;
-  } else if (config.type === "list") {
-    switch (settings.list.formating) {
-      case "prompts": {
-        let output: string[] = [];
-        config.items.forEach((item) => {
-          let promptOutput = prompt(item.label, item.value) || "";
-          output.push(promptOutput);
-        });
-        return output;
-      }
-      default: {
-        throw new Error(
-          "library: popup: easyprompt: Invalid config for list mode"
-        );
-      }
-    }
-  } else if (config.type === "text") {
-    return prompt(config.prompt, config.default);
-  } else {
-    throw new Error("library: popup: easyprompt: Invalid config type");
-  }
+  }))
 }

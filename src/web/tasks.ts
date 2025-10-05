@@ -1,3 +1,5 @@
+import { err, ok, Result } from "neverthrow";
+
 /**
  * reminder: use self/window .addEventListener("message",func)
  * to get data in the worker
@@ -41,29 +43,31 @@ export class workerHelper {
     return send;
   }
 
-  sendData(data: string | number | object | Function | boolean) {
+  sendData(data: any): Result<string, TypeError> {
+    let dataToSend: string;
     switch (typeof data) {
       case "string":
         this.postMessage(data);
-        break;
-      case "number":
-        this.postMessage(this.number(data));
-        break;
+        return ok(data);
+      case "number": //combined with bigint
       case "bigint":
-        this.postMessage(this.number(data));
-        break;
+        dataToSend = this.number(Number(data));
+        this.postMessage(dataToSend);
+        return ok(dataToSend);
       case "object":
-        this.postMessage(JSON.stringify(data));
-        break;
+        dataToSend = JSON.stringify(data);
+        this.postMessage(dataToSend);
+        return ok(dataToSend);
       case "function":
-        this.postMessage(data.toString());
-        break;
-
+        dataToSend = data.toString();
+        this.postMessage(dataToSend);
+        return ok(dataToSend);
       case "boolean":
-        this.postMessage(data ? "true" : "false");
-        break;
+        dataToSend = data ? "true" : "false";
+        this.postMessage(dataToSend);
+        return ok(dataToSend);
       default:
-        throw new Error("unknown type: " + typeof data);
+        return err(new TypeError("unknown type: " + typeof data));
     }
   }
 }
