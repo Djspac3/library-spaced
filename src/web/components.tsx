@@ -17,7 +17,8 @@ export function makeList(
 }
 
 /**
- * a small idiotic script to quickely make html objects (note: NORMAL dom not (p)react)
+ * a small idiotic script to quickely make normal html objects
+ * cannot add custom properties
  * @param tag
  * @param properties
  * @param parent

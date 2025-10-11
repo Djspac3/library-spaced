@@ -54,14 +54,3 @@ export type convertToDiscoUnion<T> = {
 }[keyof T];
 
 export type TODO = any;
-
-/**
- * why isnt this built in or in a normal library?
- */
-export function sleep(ms: number = 1000) {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve;
-    }, ms)
-  );
-}

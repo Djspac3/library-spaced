@@ -6,9 +6,9 @@
     "./*": "./src/*"
   },
   "scripts": {
-    "prepare": "tsc",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,13 @@
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
     "neverthrow": "^8.2.0",
-    "preact": "^10.27.1",
-    "typescript": "^5.9.3"
+    "preact": "^10.27.1"
+  },
+  "devDependencies": {
+    "@testing-library/preact": "^3.2.4",
+    "@types/jsdom": "^27.0.0",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }
