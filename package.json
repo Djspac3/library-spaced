@@ -15,7 +15,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
-    "neverthrow": "^8.2.0",
     "preact": "^10.27.1"
   },
   "devDependencies": {
