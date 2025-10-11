@@ -1,4 +1,5 @@
-import { err, ok, Result, ResultAsync } from "neverthrow";
+import { err, ok, Result } from "../core/result";
+import { ResultAsync } from "../core/result-async";
 import type { convertToDiscoUnion } from "../core/helpers";
 
 // small temporary alias to remove EVERYTHING

@@ -1,4 +1,4 @@
-import { err, ok, Result } from "neverthrow";
+import { err, ok, Result } from "../core/result";
 
 /**
  * reminder: use self/window .addEventListener("message",func)
