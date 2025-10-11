@@ -55,5 +55,5 @@ export type convertToDiscoUnion<T> = {
 
 export type TODO = any;
 
-export type thenable<T> = PromiseLike<T>
-export type awaitable<T> = T | thenable<T>
+export type thenable<T> = PromiseLike<T>;
+export type awaitable<T> = T | thenable<T>;
