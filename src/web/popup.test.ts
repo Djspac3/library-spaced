@@ -26,6 +26,6 @@ test("check runOnceOnPage on mock popup", async () => {
       await runOnceOnPage("about:blank", (win) => {
         return win.location.href;
       })
-    ).unwrapOr("failed")
+    ).unwrap()
   ).toBe("about:blank");
 });
