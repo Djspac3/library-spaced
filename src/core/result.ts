@@ -1,22 +1,31 @@
 /**
  * makes a result from a function that can throw
+ * you can optionally use the generic E to add types to it
  * @param fn a function that can throw
  * @returns a result with the return type of the function or the error thrown
  */
-export function fromthrowable<T,fnType extends (...args: any[])=>T>(fn: fnType): Result<T, unknown>
+export function fromthrowable<T, E = unknown>(fn: () => T): Result<T, E>;
 /**
  * makes a result from a function that can throw with arguments
+ * you can optionally use the generic E to add types to it
  * @param fn a function that can throw
  * @param args the arguments to pass to the function
  * @returns a result with the return type of the function or the error thrown
  */
-export function fromthrowable<T,fnType extends (...args: any[])=>T>(fn: fnType, ...args:any[]): Result<T, unknown>
-export function fromthrowable<T,fnType extends (...args: any[])=>T>(fn: fnType, ...args:any[]): Result<T, unknown>{
+export function fromthrowable<T, E = unknown, inputs extends any[] = []>(
+  fn: (...args: inputs) => T,
+  ...args: inputs
+): Result<T, E>;
+// implimentation
+export function fromthrowable<T, E = unknown, inputs extends any[] = []>(
+  fn: (...args: inputs) => T,
+  ...args: inputs
+): Result<T, E> {
   // the fns args being so weirdly typed is just implimentation stuff
   try {
     return ok(fn(...args));
   } catch (e) {
-    return err(e);
+    return err<T, E>(e as E); // as E is becase you could know the error soo its best to allow typing it
   }
 }
 
