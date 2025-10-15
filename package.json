@@ -3,12 +3,16 @@
   "version": "1.2.0",
   "description": "",
   "exports": {
-    "./*": "./src/*"
+    "./*": "./dist/*",
+    "./helpers": "./dist/core/helpers",
+    "./result": "./dist/core/result",
+    "./result-async": "./dist/core/result-async"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "vitest"
+    "test": "vitest",
+    "preinstall": "tsc"
   },
   "keywords": [],
   "author": "",
