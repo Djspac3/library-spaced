@@ -21,9 +21,9 @@ export const rand = {
   },
 };
 
-export function defineRandGlobaly() {
-  Object.defineProperty(Math, "rand", {
+if (!("rand" in Math)) {
+  Math = Object.defineProperty(Math, "rand", {
     value: rand,
-    writable: false,
+    enumerable: false,
   });
 }
