@@ -12,14 +12,10 @@ a list of tasks to do later
 
 vectors, why? because im not using A external library!
 
-- styles/main.scss
-
-some styles i made
-
 - web/components
 
-components for (p)react/plain js
+components for preact
 
 - web/popup
 
-popup library for easier types and shit
+popup module, also did anyone even know adding ! in typescript ignores when it doesnt return a valid value?

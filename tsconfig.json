@@ -2,18 +2,17 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "target": "ES2020",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "target": "es6",
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "strictNullChecks": true,
+    "allowArbitraryExtensions": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
     "declaration": true,
-    "removeComments": true
+    "isolatedModules": true,
+    "noEmit": true,
+    "outDir": "dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "node_modules"]
 }

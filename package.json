@@ -1,30 +1,31 @@
 {
-  "name": "librarys",
+  "name": "library-spaced",
+  "description": "a private library im only publishing it because its painful to use otherwise",
   "version": "2.0.0",
-  "description": "",
-  "exports": {
-    "./*": "./dist/*",
-    "./helpers": "./dist/core/helpers",
-    "./result": "./dist/core/result",
-    "./result-async": "./dist/core/result-async"
-  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "vitest",
-    "preinstall": "tsc"
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "test": "vitest"
   },
-  "keywords": [],
+  "keywords": [
+    "library",
+    "private"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
+    "glob": "^11.0.3",
     "preact": "^10.27.1"
   },
   "devDependencies": {
     "@testing-library/preact": "^3.2.4",
     "@types/jsdom": "^27.0.0",
     "jsdom": "^27.0.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   }
